@@ -1,6 +1,6 @@
 const canvas = document.getElementById('tetris');
 const context = canvas.getContext('2d');
-context.scale(20, 20);
+context.scale(40, 40);
 let esesInterval = 250;
 let fut = false;
 
@@ -62,6 +62,7 @@ function formatCsinal(forma) {
 }
 
 const colors = [
+    null,
     "orange",
     "blue",
     "yellow",
@@ -130,7 +131,7 @@ function collide(arena, player) {
     return false;
 }
 
-const arena = createMatrix(12, 20);
+const arena = matrixCsinal(12, 20);
 const player = {
     pos: { x: 0, y: 0 },
     matrix: null,
@@ -152,7 +153,6 @@ function startGame() {
         playerReset();
         updateScore();
         update();
-        pauseButton.disabled = false
         startButton.innerText = "Restart";
         fut = true;
         
@@ -162,7 +162,7 @@ function startGame() {
         updateScore();
         context.clearRect(0, 0, canvas.width, canvas.height);
         arena.forEach((row) => row.fill(0));
-        dropInterval;
+        esesInterval;
         
          // Change button text to "Restart"
         // Disable the Start/Restart button during gameplay
@@ -183,16 +183,11 @@ function stopGame(){
     // Update the score (set to 0)
     player.score = 0;
     updateScore();
-
-    // Disable the Pause button
-    pauseButton.disabled = true;
     
     // Enable the Start button
     isGameRunning = false; // Set the game as not running
     
     startButton.innerHTML = "Start Game"
-    pauseButton.innerHTML = "Pause"
-    pauseButton.disabled = true
     isPaused = false
 
     
@@ -203,7 +198,7 @@ function stopGame(){
 // Function to reset the player
 function playerReset() {
     const pieces = "TJLOSZI";
-    player.matrix = createPiece(pieces[(pieces.length * Math.random()) | 0]);
+    player.matrix = formatCsinal(pieces[(pieces.length * Math.random()) | 0]);
     player.pos.y = 0;
     player.pos.x = ((arena[0].length / 2) | 0) - ((player.matrix[0].length / 2) | 0);
     if (collide(arena, player)) {
@@ -238,7 +233,7 @@ function update(time = 0) {
     if (!isPaused) {
         const deltaTime = time - lastTime;
         dropCounter += deltaTime;
-        if (dropCounter > dropInterval) {
+        if (dropCounter > esesInterval) {
             playerDrop();
         }
         lastTime = time;
