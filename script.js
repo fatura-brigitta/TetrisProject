@@ -320,7 +320,7 @@ function arenaSweep() {
 
 // Function to draw the game state
 function draw() {
-    context.fillStyle = "#F5F5F5";
+    context.fillStyle = "white";
     context.fillRect(0, 0, canvas.width, canvas.height);
     drawMatrix(arena, { x: 0, y: 0 });
     drawMatrix(player.matrix, player.pos);
